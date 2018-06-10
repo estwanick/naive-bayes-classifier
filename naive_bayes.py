@@ -40,8 +40,8 @@ while(l != ''):
 nmFailed = []
 nmSuccess = []
 for j in range(0, cols, 1):
-    nmFailed.append(0)
-    nmSuccess.append(0)
+    nmFailed.append(1)
+    nmSuccess.append(1)
 
 for i in range(0, rows, 1):
     for j in range(0, cols, 1):
@@ -81,20 +81,16 @@ for i in range(0, rows, 1):
             sdF = sqrt(failureVariance[j])
             sdS = sqrt(successVariance[j])
             x = data[i][j]
-            nbF.append( ( x - nmFailed[j] ) / sdF )# should sum of all values of nbF and take min
-            nbS.append( ( x - nmSuccess[j] ) / sdS )
+            nbF.append( (( x - nmFailed[j] ) / sdF) ** 2 )# should sum of all values of nbF and take min
+            nbS.append( (( x - nmSuccess[j] ) / sdS) ** 2 )
         
-        print min( nbF ), min( nbS )
-        if feature_predictions.get(i) is None:
-            feature_predictions[i] = []    
-        if(d0 < d1):
-            # print('0', i)
-            feature_predictions[i].append('0')
-        else:
-            # print('1', i)
-            feature_predictions[i].append('1')
+        mF = min( nbF )
+        mS = min( nbS )
 
-        # print feature_predictions
+        if(mS < mF):
+            print('0', i)
+        else:
+            print('1', i)
 
 
 
