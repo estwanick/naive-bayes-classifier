@@ -68,8 +68,8 @@ for i in range(0, rows, 1):
         if(trainLabels.get(i) != None and trainLabels[i] == 0):
             failureVariance[j] = (data[i][j] - nmFailed[j]) ** 2
 
-print successVariance
-print failureVariance
+# print successVariance
+# print failureVariance
 
 for i in range(0, rows, 1):
     feature_predictions = {}
@@ -88,9 +88,9 @@ for i in range(0, rows, 1):
         mS = min( nbS )
 
         if(mS < mF):
-            print('0', i)
+            print '0', i
         else:
-            print('1', i)
+            print '1', i
 
 
 
