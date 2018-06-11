@@ -13,8 +13,8 @@ while(l != ''):
     l2 = []
     for j in range(0, len(a), 1):
         l2.append(float(a[j]))
-        data.append(l2)
-        l = f.readline()
+    data.append(l2)
+    l = f.readline()
 
 rows = len(data)
 cols = len(data[0])
@@ -74,45 +74,16 @@ for i in range(0, rows, 1):
 for i in range(0, rows, 1):
     feature_predictions = {}
     if(trainLabels.get(i) == None):
-        d0, d1 = 0, 0
-        nbF = []
-        nbS = []
+        nbF, nbS = 0, 0
         for j in range(0, cols, 1):
             sdF = sqrt(failureVariance[j])
             sdS = sqrt(successVariance[j])
-            x = data[i][j]
-            nbF.append( (( x - nmFailed[j] ) / sdF) ** 2 )# should sum of all values of nbF and take min
-            nbS.append( (( x - nmSuccess[j] ) / sdS) ** 2 )
-        
-        mF = min( nbF )
-        mS = min( nbS )
+            cell = data[i][j]
+            nbF = nbF + (( cell - nmFailed[j] ) / sdF) ** 2
+            nbS = nbS + (( cell - nmSuccess[j] ) / sdS) ** 2
 
-        if(mS < mF):
-            print '0', i
+        if(nbF < nbS):
+            print('0', i)
         else:
-            print '1', i
-
-
-
-
-#Classify points
-# for i in range(0, rows, 1):
-#     feature_predictions = {}
-#     if(trainLabels.get(i) == None):
-#         d0, d1 = 0, 0
-#         for j in range(0, cols, 1):
-#             d0 = d0 + ( nmFailed[j] - data[i][j]**2)
-#             d1 = d1 + ( nmSuccess[j] - data[i][j]**2)
-#             if feature_predictions.get(i) is None:
-#                 feature_predictions[i] = []    
-#             if(d0 < d1):
-#                 # print('0', i)
-#                 feature_predictions[i].append('0')
-#             else:
-#                 # print('1', i)
-#                 feature_predictions[i].append('1')
-
-#         print feature_predictions
-
-# Naive Bayes
+            print('1', i)
 
